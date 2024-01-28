@@ -10,7 +10,7 @@ from scipy.optimize import curve_fit
 
 def load_single_event(dir, key, events):
     """Loads a single event from a file and plots the spectrum."""
-    file = f"spectra_raw/{dir}/{key}.txt"
+    file = f"{dir}/{key}.txt"
     if os.path.isfile(file):
         events[key] = np.loadtxt(file, skiprows=1, unpack=True)
 
