@@ -177,15 +177,15 @@ def plot_fit(element, events, peak_dict):
     for i, energy in enumerate(peak_dict[element]['e0']):
         if isinstance(energy, tuple):
             popt, pcov, mask = do_double_gaussian_fit(peak_dict, tot, counts, counts_err, element, i)
-            plt.plot(tot[mask], double(tot[mask], *popt), label=label_double_gaussian(energy[0], energy[1], popt, pcov) + '\n')
+            ax.plot(tot[mask], double(tot[mask], *popt), label=label_double_gaussian(energy[0], energy[1], popt, pcov) + '\n')
         else:
             popt, pcov, mask = do_single_gaussian_fit(peak_dict, tot, counts, counts_err, element, i)
-            plt.plot(tot[mask], single(tot[mask], *popt), label=label_gaussian(energy, popt, pcov) + '\n')
-    ticks = np.arange(0, np.max(tot)+100, 200)
+            ax.plot(tot[mask], single(tot[mask], *popt), label=label_gaussian(energy, popt, pcov) + '\n')
+    ticks = np.arange(0, np.max(tot)+100, 100)
     ax.set_ylim(1, np.max(counts)*1.3)
     ax.set_xlim(ticks[0], ticks[-1])
     ax.set_yscale('log')
-    ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.15), ncol=3)
+    ax.legend(loc='upper center', bbox_to_anchor=(0.5, 0.2), ncol=3)
     ax.set_xticks(ticks)
     ax.grid(linestyle = 'dotted')
     ax.set_xlabel('energy / keV')
@@ -221,14 +221,13 @@ def plot_single_fit(element, events, peak_dict, energy_index):
         print('double')
         popt, pcov, mask = do_double_gaussian_fit(peak_dict, tot, counts, counts_err, element, energy_index)
         tfine = np.linspace(tot[mask][0], tot[mask][-1], 1000)
-        ax.errorbar(tot[mask], counts[mask], fmt = '+', label='data', yerr =  counts_err[mask], ecolor='red',
-                     capsize=1.5, elinewidth=0.8, capthick=1, zorder = 1, alpha = 0.8)
-        ax.plot(tfine, double(tfine, *popt), label='fit', color = 'blue', alpha = 0.9)
-        ax.plot(tfine, gaussian(tfine, *popt[:3]) + gaussian(tfine, *popt[4:7]), label='gaussian', linestyle = 'dashdot', color = 'darkred')
-        ax.plot(tfine, erfunc(tfine, *popt[:4]) + erfunc(tfine, *popt[4:8]), label='step', linestyle='dotted', color = 'darkorange')
+        ax.errorbar(tot[mask], counts[mask], fmt = '+', label='data', yerr =  counts_err[mask], color = 'dodgerblue',ecolor='red', capsize=1.5, elinewidth=0.8, capthick=1, zorder = 1, alpha = 0.8)
+        ax.plot(tfine, double(tfine, *popt), label='fit', color = 'black', alpha = 1)
+        ax.plot(tfine, gaussian(tfine, *popt[:3]) + gaussian(tfine, *popt[4:7]), label='gaussian', linestyle = 'dashdot', color = 'black')
+        ax.plot(tfine, erfunc(tfine, *popt[:4]) + erfunc(tfine, *popt[4:8]), label='step', linestyle='dotted', color = 'black', alpha = 1)
         chi2 = chi2_red(counts[mask], double(tot[mask], *popt), np.sqrt(counts[mask]), len(tot[mask])-len(popt))
-        ax.text(1.02, 0.1, label_double_gaussian(*energy, popt, pcov) + '\n' + r"$\chi^2_{red}$ = " + 
-                 f"{round(chi2, 2)}", transform=plt.gca().transAxes, bbox={'facecolor': 'white', 'alpha': 0.5, 'pad': 3})
+        ax.text(0.1, 0.9, label_double_gaussian(*energy, popt, pcov) + '\n' + r"$\chi^2_{red}$ = " + 
+                 f"{round(chi2, 2)}", transform=plt.gca().transAxes, horizontalalignment='left', verticalalignment='top', bbox={'facecolor': 'white', 'alpha': 0.5, 'pad': 3})
     else:
         print('single')
         popt, pcov, mask = do_single_gaussian_fit(peak_dict, tot, counts, counts_err, element, energy_index)
@@ -239,8 +238,7 @@ def plot_single_fit(element, events, peak_dict, energy_index):
         ax.plot(tfine, tail(tfine, *popt[:3], *popt[4:-1]), label='tail', linestyle='dashed', color = 'black')
         ax.plot(tfine, erfunc(tfine, *popt[:4]), label='step', linestyle='dotted', color = 'black', alpha = 1)
         chi2 = chi2_red(counts[mask], single(tot[mask], *popt), np.sqrt(counts[mask]), len(tot[mask])-len(popt))
-        #ax.text(0.75, 0.5, label_gaussian(energy, popt, pcov) + '\n' + r"$\chi^2_{red}$ = " + f"{round(chi2, 2)}", 
-        #         transform = plt.gca().transAxes, horizontalalignment='left', verticalalignment='top', bbox={'facecolor': #'white', 'alpha': 0.5, 'pad': 8})
+        ax.text(0.1, 0.9, label_gaussian(energy, popt, pcov) + '\n' + r"$\chi^2_{red}$ = " + f"{round(chi2, 2)}", transform = plt.gca().transAxes, horizontalalignment='left', verticalalignment='top', bbox={'facecolor': 'white', 'alpha': 0.5, 'pad': 8})
     ax.plot(tfine, linear(tfine, popt[-1]), label='constant background', linestyle='-', color = 'grey', zorder = 0)    
     print('fit parameters = ', popt)
     print('error', np.sqrt(np.diag(pcov)))
@@ -248,7 +246,7 @@ def plot_single_fit(element, events, peak_dict, energy_index):
     ax.set_ylabel('counts per hour')
     ax.legend()
     #ax.set_title(f'{element}, {energy} keV')
-    ax.set_title(r'Cs-137, $E_{peak}$ = 661.7 keV') #, $\chi^2_{red} = $' + f"{round(chi2, 2)}")
+    ax.set_title(f'{element}' + r", $E_{peak}$" + f" = {energy} keV") #, $\chi^2_{red} = $' + f"{round(chi2, 2)}")
     ax.set_ylim(0, np.max(counts[mask])*1.2)
     ax.set_xlim(tot[mask][0], tot[mask][-1])
 

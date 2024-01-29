@@ -1,9 +1,9 @@
 import sys
 sys.path.append(r"\Users\jonat\OneDrive - Universität Wien\4_COSMOS Seminar\bellatrix")
-sys.path.append(r"\Users\jonat\OneDrive - Universität Wien\4_COSMOS Seminar\bellatrix\gamma_analysis")
-sys.path.append(r"\Users\jonat\OneDrive - Universität Wien\4_COSMOS Seminar\bellatrix\gamma_analysis\analysis")
+sys.path.append(r"\Users\jonat\OneDrive - Universität Wien\4_COSMOS Seminar\bellatrix\detector_analysis")
+sys.path.append(r"\Users\jonat\OneDrive - Universität Wien\4_COSMOS Seminar\bellatrix\detector_analysis\analysis")
 
-from gamma_analysis.analysis import fitting as fit
+from detector_analysis.analysis import fitting as fit
 
 from datetime import datetime as dt
 
