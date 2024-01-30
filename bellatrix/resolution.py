@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.optimize import curve_fit
-from analysis.spectra_analysis import combine_new_key, res_func, get_res
+from analysis.detector_analysis import combine_new_key, res_func, get_res
 from analysis.fitting import chi2_red
 from utils.file_handling import save_plot
 

@@ -1,1 +1,1 @@
-from . import fitting, spectra_analysis
+from . import detector_analysis, fitting

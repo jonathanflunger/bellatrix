@@ -4,7 +4,7 @@ import pandas as pd
 from scipy.optimize import curve_fit
 from matplotlib.ticker import StrMethodFormatter
 
-from analysis.spectra_analysis import combine_new_key, log_eff, eff_energy
+from analysis.detector_analysis import combine_new_key, log_eff, eff_energy
 from analysis.fitting import chi2_red
 from peak_fitting import load_config
 from analysis.fitting import load_events

@@ -1,16 +1,22 @@
 .. bellatrix documentation master file, created by
-   sphinx-quickstart on Wed Nov  8 10:43:10 2023.
+   sphinx-quickstart on Tue Jan 30 17:46:51 2024.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to bellatrix' documentation!
+Welcome to bellatrix's documentation!
 =====================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   spectra_analysis.rst
+   peak_fitting.rst
+   calibration.rst
+   resolution.rst
+   efficiency.rst
+   analysis_detector.rst
+   analysis_fitting.rst
+
 
 Indices and tables
 ==================

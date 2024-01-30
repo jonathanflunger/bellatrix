@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from matplotlib.ticker import MultipleLocator
 
-from analysis.spectra_analysis import linear, calibration
+from analysis.detector_analysis import linear, calibration
 from analysis.fitting import chi2_red, load_events
 from peak_fitting import load_config
 from utils.file_handling import save_plot

@@ -7,7 +7,6 @@ from datetime import datetime as dt
 from configparser import ConfigParser
 
 from analysis import fitting as fit
-from analysis import spectra_analysis as spec
 from utils.file_handling import save_plot
 
 def get_date(config, isotope):
