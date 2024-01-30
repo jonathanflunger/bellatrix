@@ -6,8 +6,8 @@ import pandas as pd
 from datetime import datetime as dt
 from configparser import ConfigParser
 
-from analysis import fitting as fit
-from utils.file_handling import save_plot
+import bellatrix.analysis.fitting as fit
+from bellatrix.utils.file_handling import save_plot
 
 def get_date(config, isotope):
     """Get the date of calibration from the config file."""

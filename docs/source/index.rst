@@ -16,6 +16,9 @@ Welcome to bellatrix's documentation!
    efficiency.rst
    analysis_detector.rst
    analysis_fitting.rst
+   utils_file_handling.rst
+
+   intro-notebook.md
 
 
 Indices and tables

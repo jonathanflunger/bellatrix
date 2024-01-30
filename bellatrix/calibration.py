@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 from matplotlib.ticker import MultipleLocator
 
-from analysis.detector_analysis import linear, calibration
-from analysis.fitting import chi2_red, load_events
-from peak_fitting import load_config
-from utils.file_handling import save_plot
+from bellatrix.analysis.detector_analysis import linear, calibration
+from bellatrix.analysis.fitting import chi2_red, load_events
+from bellatrix.peak_fitting import load_config
+from bellatrix.utils.file_handling import save_plot
 
 def fit_calibration(df):
     """Fit the calibration function to the data."""

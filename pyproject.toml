@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bellatrix"
+version = "0.0.1"
+authors = [
+    { name="Jonathan Flunger", email="jonathan.flunger@gmail.com" },
+]
+description = "A package to characterise gamma-ray space detectors."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy >=1.26",
+    "scipy >=1.11",
+    "matplotlib >=3.7",
+    "pandas >=2.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/jonathanflunger/bellatrix"
+
+[tool.setuptools.dynamic]
+version = {attr = "bellatrix.__version__"}
+
+[tool.setuptools]
+py-modules = []
