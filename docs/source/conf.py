@@ -12,12 +12,11 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../bellatrix/'))
-
+sys.path.insert(0, os.path.abspath("../../gammaforge"))
 
 # -- Project information -----------------------------------------------------
 
-project = 'bellatrix'
+project = 'gammaforge'
 copyright = '2024, Jonathan Flunger'
 author = 'Jonathan Flunger'
 
