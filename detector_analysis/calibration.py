@@ -7,6 +7,7 @@ from matplotlib.ticker import MultipleLocator
 from analysis.spectra_analysis import linear, calibration
 from analysis.fitting import chi2_red, load_events
 from peak_fitting import load_config
+from utils.file_handling import save_plot
 
 def fit_calibration(df):
     """Fit the calibration function to the data."""
@@ -17,8 +18,11 @@ def fit_calibration(df):
     berr = round(np.sqrt(np.diag(pcov))[1],2)
     return a, b, aerr, berr
 
-def plot_calibration(ax, df, a, b, aerr, berr):
+def plot_calibration(df, a, b, aerr, berr):
     """Plot the calibration function and the data."""
+
+    fig, ax = plt.subplots()
+
     ax.errorbar(df.index.get_level_values(1), df['energy'], yerr = df['energy_err'], fmt = 'x', label='callibration data', markersize=5, color = 'black', zorder=10, ecolor='red', capsize=2)
 
     efine = np.linspace(5, 1600, 1000)
@@ -42,7 +46,11 @@ def plot_calibration(ax, df, a, b, aerr, berr):
     ax.set_xlim(0, 1600)
     ax.set_ylim(0, 1700)
 
-def plot_calibrated_spectrum(ax, df, a, b):
+    return fig, ax
+
+def plot_calibrated_spectrum(df, a, b):
+
+    fig, ax = plt.subplots()
 
     ticks = [0, 200, 800, 1000, 1400]
     date_dict, peak_dict, dir = load_config()
@@ -75,18 +83,19 @@ def plot_calibrated_spectrum(ax, df, a, b):
     ax.grid(linestyle = 'dotted', which='minor', axis = "x", alpha = 0.5)
     ax.grid(linestyle = 'dotted', which='major', axis = "y", alpha = 0.5)
 
-#file_save(fig, 'calibrated_spectrum')
-#file_save(fig, 'calibration')
+    return fig, ax
     
 def main():
     df = pd.read_csv('calibration.csv', index_col=[0,1], sep='\t')
     a, b, aerr, berr = fit_calibration(df)
-    fig, ax = plt.subplots()
-    plot_calibration(ax, df, a, b, aerr, berr)
+    
+    fig, ax = plot_calibration(df, a, b, aerr, berr)
     plt.show()
-    fig, ax = plt.subplots()
-    plot_calibrated_spectrum(ax, df, a, b)
+    save_plot(fig, 'calibration')
+
+    fig, ax = plot_calibrated_spectrum(df, a, b)
     plt.show()
+    save_plot(fig, 'calibrated_spectrum')
 
 if __name__ == "__main__":
     main()

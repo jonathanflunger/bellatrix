@@ -8,6 +8,7 @@ from analysis.spectra_analysis import combine_new_key, log_eff, eff_energy
 from analysis.fitting import chi2_red
 from peak_fitting import load_config
 from analysis.fitting import load_events
+from utils.file_handling import save_plot
 
 def get_dicts():
     dates, peaks, dir = load_config()
@@ -37,9 +38,11 @@ def plot_eff_values(ax, df, eff_type):
     for index in df.index.get_level_values(0).unique():
         ax.errorbar(df.loc[index].index, df.loc[index][eff_type]*100, yerr = df.loc[index][eff_type + '_err']*100, fmt = 'o', label=f'{index}', markersize=4, zorder=10, ecolor = 'red', capsize=3, alpha = 1)
 
-def plot_relative_efficiency(ax, df, popt, pcov):
+def plot_relative_efficiency(df, popt, pcov):
 
     efine = np.linspace(5, 1500, 1000)
+
+    fig, ax = plt.subplots()
 
     ax.plot(efine, np.exp(log_eff(efine, *popt))*100, label=r'fit, $\ln\epsilon = a + b\ln E$', linestyle='dashed', color = 'black', alpha = 0.5)
 
@@ -61,14 +64,16 @@ def plot_relative_efficiency(ax, df, popt, pcov):
     ax.grid(linestyle = 'dotted', which='minor', axis = "both", alpha = 0.5)
     ax.grid(linestyle = 'dashed', which='major', axis = "both", alpha = 0.7)
 
-    return popt
+    return fig, ax, popt
 
 
 def fit_instrinsic_efficiency(df):
     popt, pcov = curve_fit(log_eff, df.index.get_level_values(1), np.log(df['int_eff']), sigma = df['int_eff_err']/df['int_eff'], absolute_sigma=True)
     return popt, pcov
 
-def plot_intrinsic_efficiency(ax, df, popt, pcov, popt_rel):
+def plot_intrinsic_efficiency(df, popt, pcov, popt_rel):
+
+    fig, ax = plt.subplots()
 
     a_eff = popt[0]
     a_eff_err = np.sqrt(np.diag(pcov))[0]
@@ -114,20 +119,19 @@ def plot_intrinsic_efficiency(ax, df, popt, pcov, popt_rel):
     ax.grid(linestyle = 'dotted', which='minor', axis = "both", alpha = 0.5)
     ax.grid(linestyle = 'dashed', which='major', axis = "both", alpha = 0.7)
 
-#file_save(fig, 'intrinsic_efficiency')
-
-#file_save(fig, 'relative_efficiency')
+    return fig, ax
     
 def main():
     df = get_df(*get_dicts())
     popt, pcov = fit_relative_efficiency(df)
-    fig, ax = plt.subplots()
-    popt_rel = plot_relative_efficiency(ax, df, popt, pcov)
+    fig, ax, popt_rel = plot_relative_efficiency(df, popt, pcov)
     plt.show()
-    popt, pcov = fit_instrinsic_efficiency(df)
-    fig, ax = plt.subplots()
-    plot_intrinsic_efficiency(ax, df, popt, pcov, popt_rel)
-    plt.show()
+    save_plot(fig, "relative_efficiency")
 
+    popt, pcov = fit_instrinsic_efficiency(df)
+    fig, ax = plot_intrinsic_efficiency(df, popt, pcov, popt_rel)
+    plt.show()
+    save_plot(fig, "intrinsic_efficiency")
+    
 if __name__ == "__main__":
     main()

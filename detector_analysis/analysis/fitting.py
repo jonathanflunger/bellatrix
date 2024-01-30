@@ -251,4 +251,3 @@ def plot_single_fit(element, events, peak_dict, energy_index):
     ax.set_xlim(tot[mask][0], tot[mask][-1])
 
     return fig, ax
-

@@ -4,6 +4,7 @@ import pandas as pd
 from scipy.optimize import curve_fit
 from analysis.spectra_analysis import combine_new_key, res_func, get_res
 from analysis.fitting import chi2_red
+from utils.file_handling import save_plot
 
 def get_df():
     df = pd.read_csv('calibration.csv', index_col=[0,1], sep='\t')
@@ -23,7 +24,7 @@ def label_isotopes(df):
         label += isotope + ", "
     return label[:-2]
 
-def plot_resolution(ax, df, popt, pcov):
+def plot_resolution(df, popt, pcov):
     res_fit, res_err = get_res(efine, popt, pcov)
 
     _a, _b, _c, = popt
@@ -35,6 +36,7 @@ def plot_resolution(ax, df, popt, pcov):
 
     chi2 = chi2_red(df['res']**2, res_func(df.index.get_level_values(1), *popt), df['res']*df['res_err']*2, len(df['res'])-len(popt))
 
+    fig, ax = plt.subplots()
 
     ax.plot(efine, res_fit, label=r'$R = \sqrt{a^2E^{-2} + b^2E^{-1} + c^2}$' 
             + f'\n$\chi^2_{{red}} = {chi2:.2f}$',
@@ -60,12 +62,14 @@ def plot_resolution(ax, df, popt, pcov):
     ax.grid(linestyle='dotted', which='minor', axis="both", alpha=0.5)
     ax.grid(linestyle='dashed', which='major', axis="both", alpha=0.7)
 
+    return fig, ax
+
 def main():
     df = get_df()
-    fig, ax = plt.subplots()
     popt, pcov = fit_resolution(df)
-    plot_resolution(ax, df, popt, pcov)
+    fig, ax = plot_resolution(df, popt, pcov)
     plt.show()
+    save_plot(fig, "resolution")
 
 if __name__ == "__main__":
     main()

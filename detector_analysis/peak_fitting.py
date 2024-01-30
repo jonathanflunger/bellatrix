@@ -8,6 +8,7 @@ from configparser import ConfigParser
 
 from analysis import fitting as fit
 from analysis import spectra_analysis as spec
+from utils.file_handling import save_plot
 
 def get_date(config, isotope):
     """Get the date of calibration from the config file."""
@@ -82,15 +83,17 @@ def plot_raw_spectra(events):
     ax.legend(title = 'Isotopes', loc = 'upper right')
     ax.set_title('Raw Spectra, Pre-Calibrated Energy')
 
-def fit_peak(spectrum, events, peak_dict):
+def plot_fit_peak(spectrum, events, peak_dict):
     for index in range(len(peak_dict[spectrum]['e0'])):
         fig, ax = fit.plot_single_fit(spectrum, events, peak_dict, index)
         ax.set_xlabel(r'a.u')
         plt.show()
+        return fig, ax
 
-def fit_all_peaks(key, events, peak_dict):
+def plot_fit_all_peaks(key, events, peak_dict):
         fig, ax = fit.plot_fit(key, events, peak_dict)
         plt.show()
+        return fig, ax
 
 def replace_err(df, key):
     df.loc[df[key+'_err'] >= df[key], key] = np.nan
@@ -113,10 +116,13 @@ def save_df(df, filename):
 def main():
     date_dict, peak_dict, dir = load_config()
     events = fit.load_events(date_dict, dir)
-    if len(sys.argv) != 0 and sys.argv[1] == 'plot':
-        for key in events.keys():
-            fit_peak(key, events, peak_dict)
-            fit_all_peaks(key, events, peak_dict)
+    if len(sys.argv) > 1:
+        if sys.argv[1] == 'plot':
+            for key in events.keys():
+                fig, ax = plot_fit_peak(key, events, peak_dict)
+                save_plot(fig, key + '_peak_fit')
+                fig, ax = plot_fit_all_peaks(key, events, peak_dict)
+                save_plot(fig, key + '_all_peaks_fit')
     df = write_to_df(events, peak_dict)
     save_df(df, 'calibration.csv')
         
