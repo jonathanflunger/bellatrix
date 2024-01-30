@@ -3,3 +3,4 @@ myst_nb
 numpy
 pandas
 matplotlib
+scipy
