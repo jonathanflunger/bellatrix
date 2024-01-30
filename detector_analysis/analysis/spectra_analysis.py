@@ -43,6 +43,10 @@ def calibration_err(e_pre, a, b, aerr, berr):
     """Calculate the error of the calibration."""
     return np.sqrt((e_pre*berr/a)**2 + ((e_pre - b)/a**2*aerr)**2)
 
+def linear(x, a, b):
+    """Linear function to fit the calibration over energy."""
+    return a*x + b
+
 # ------------------- resolution ------------------- #
 
 def resolution(energy, sigma):
