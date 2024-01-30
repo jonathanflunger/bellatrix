@@ -2,9 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from scipy.optimize import curve_fit
-from gammaforge.analysis.detector_analysis import combine_new_key, res_func, get_res
-from gammaforge.analysis.fitting import chi2_red
-from gammaforge.utils.file_handling import save_plot
+from analysis.detector_analysis import combine_new_key, res_func, get_res
+from analysis.fitting import chi2_red
+from utils.file_handling import save_plot
 
 def get_df():
     df = pd.read_csv('calibration.csv', index_col=[0,1], sep='\t')
