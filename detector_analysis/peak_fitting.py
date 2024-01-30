@@ -26,7 +26,7 @@ def load_date_dict(config, isotopes):
     date_dict = {}
     for isotope in isotopes:
         date_dict[isotope] = (get_date(config, isotope),
-                                get_distance(config, isotope))
+                                *get_distance(config, isotope))
     return date_dict
 
 def split_peak_string(string):
