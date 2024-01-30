@@ -10,6 +10,6 @@ def file_save(fig, dir_out, file_name):
     fig.savefig(dir_out + file_name + ".pdf", transparent=True, dpi = 200)
 
 def save_plot(fig, file_name):
-    dir_out =  "../plots/"
+    dir_out =  "../../plots/"
     create_dir(dir_out)
     file_save(fig, dir_out, file_name)
