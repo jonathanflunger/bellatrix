@@ -1,2 +1,5 @@
 sphinx-rtd-theme
 myst_nb
+numpy
+pandas
+matplotlib
