@@ -10,7 +10,6 @@ Welcome to bellatrix' documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   tpx_analysis.rst
    spectra_analysis.rst
 
 Indices and tables

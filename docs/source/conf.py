@@ -9,8 +9,8 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath("../../spectra_analysis/"))
-sys.path.insert(0, os.path.abspath("../../tpx_analysis/"))
+sys.path.insert(0, os.path.abspath("../../detector_analysis/analysis/spectra_analysis/"))
+#sys.path.insert(0, os.path.abspath("../../tpx_analysis/"))
 
 project = 'bellatrix'
 copyright = '2023, Jonathan Flunger'
