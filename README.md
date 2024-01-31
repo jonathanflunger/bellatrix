@@ -20,3 +20,7 @@ The sample scripts in example-scripts show how to use the program:
 
 The plots are saved in the plots-directory.
 
+## Installation
+
+pip install gammaforge
+
