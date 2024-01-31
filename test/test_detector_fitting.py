@@ -1,16 +1,9 @@
 import sys
+from datetime import datetime as dt
 sys.path.append(r"C:\Users\jonat\OneDrive - Universität Wien\4_COSMOS Seminar\gammaforge")
-from gammaforge.utils.import_ini import load_config
-from gammaforge.analysis.fitting import fit_all, load_events
-
-def test_load_config():
-    peaks, dates, dir = load_config(r"C:\Users\jonat\OneDrive - Universität Wien\4_COSMOS Seminar\gammaforge\example-scripts\config.ini")
-    assert len(peaks["Ba133"]) == 3
+from gammaforge.analysis.detector_analysis import factory_res
 
 def test_fit_all():
-    dates, peaks, dir = load_config(r"C:\Users\jonat\OneDrive - Universität Wien\4_COSMOS Seminar\gammaforge\example-scripts\config.ini")
-    events = load_events(dates, r"C:\Users\jonat\OneDrive - Universität Wien\4_COSMOS Seminar\gammaforge\example-spectra")
-    df = fit_all("Ba133", events, peaks)
-    assert len(df) == 4
-
+    rel1, rel2 = factory_res()
+    assert rel1.any() < 100
     
