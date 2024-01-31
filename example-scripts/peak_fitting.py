@@ -53,6 +53,7 @@ def save_df(df, filename):
 def main():
     date_dict, peak_dict, dir = load_config("config.ini")
     events = fit.load_events(date_dict, dir)
+    print(dir)
     if len(sys.argv) > 1:
         if sys.argv[1] == 'plot':
             for key in events.keys():
