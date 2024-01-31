@@ -6,8 +6,8 @@ import pandas as pd
 from datetime import datetime as dt
 from configparser import ConfigParser
 
-import analysis.fitting as fit
-from utils.file_handling import save_plot
+import gammaforge.analysis.fitting as fit
+from gammaforge.utils.file_handling import save_plot
 
 def get_date(config, isotope):
     """Get the date of calibration from the config file."""

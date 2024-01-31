@@ -3,8 +3,8 @@ requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "bellatrix"
-version = "0.0.1"
+name = "gammaforge"
+dynamic = ["version"]
 authors = [
     { name="Jonathan Flunger", email="jonathan.flunger@gmail.com" },
 ]
@@ -16,13 +16,18 @@ dependencies = [
     "scipy >=1.11",
     "matplotlib >=3.7",
     "pandas >=2.1",
+    "datetime >=4.0",
 ]
 
+
+[tool.setuptools.packages]
+find = {} 
+
 [project.urls]
-Homepage = "https://github.com/jonathanflunger/bellatrix"
+Homepage = "https://github.com/jonathanflunger/gammaforge"
 
 [tool.setuptools.dynamic]
-version = {attr = "bellatrix.__version__"}
+version = {attr = "pysequence.__version__"}
 
 [tool.setuptools]
 py-modules = []

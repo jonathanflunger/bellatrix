@@ -10,10 +10,6 @@ Welcome to gammaforge's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   peak_fitting.rst
-   calibration.rst
-   resolution.rst
-   efficiency.rst
    analysis_detector.rst
    analysis_fitting.rst
    utils_file_handling.rst
