@@ -6,7 +6,7 @@ from matplotlib.ticker import MultipleLocator
 
 from gammaforge.analysis.detector_analysis import linear, calibration
 from gammaforge.analysis.fitting import chi2_red, load_events
-from peak_fitting import load_config
+from gammaforge.utils.import_ini import load_config
 from gammaforge.utils.file_handling import save_plot
 
 def fit_calibration(df):
@@ -53,7 +53,7 @@ def plot_calibrated_spectrum(df, a, b):
     fig, ax = plt.subplots()
 
     ticks = [0, 200, 800, 1000, 1400]
-    date_dict, peak_dict, dir = load_config()
+    date_dict, peak_dict, dir = load_config("config.ini")
     events = load_events(date_dict, dir)
 
     for tick in ticks:

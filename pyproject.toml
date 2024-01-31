@@ -27,7 +27,7 @@ find = {}
 Homepage = "https://github.com/jonathanflunger/gammaforge"
 
 [tool.setuptools.dynamic]
-version = {attr = "pysequence.__version__"}
+version = {attr = "gammaforge.__version__"}
 
 [tool.setuptools]
 py-modules = []

@@ -10,7 +10,7 @@ from peak_fitting import load_config
 from gammaforge.utils.file_handling import save_plot
 
 def get_dicts():
-    dates, peaks, dir = load_config()
+    dates, peaks, dir = load_config("config.ini")
     events = load_events(dates, dir)
     return dates, peaks, events
 
