@@ -21,7 +21,8 @@ copyright = '2024, Jonathan Flunger'
 author = 'Jonathan Flunger'
 
 # The full version, including alpha/beta/rc tags
-release = '31.01.2024'
+from gammaforge import __version__
+release = __version__
 
 
 # -- General configuration ---------------------------------------------------
