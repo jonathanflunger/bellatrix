@@ -55,9 +55,9 @@ def load_peak_dict(config, isotopes):
 def load_config(ini_filepath):
     """Load the configuration file."""
     config = ConfigParser(inline_comment_prefixes='#')
-    config.read(ini_filepath, encoding='utf-8')
-    isotopes = json.loads(config.get("isotopes", "name"))
+    config.read(ini_filepath)
+    isotopes = json.loads(config.get('isotopes', 'name'))
     date_dict = load_date_dict(config, isotopes)
     peak_dict = load_peak_dict(config, isotopes)
-    dir = "../" + config.get("isotopes", "spectra_folder")
+    dir = "..//" + config.get('isotopes', 'spectra_folder')
     return date_dict, peak_dict, dir
